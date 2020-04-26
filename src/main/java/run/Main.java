@@ -2,14 +2,14 @@ package run;
 
 import model.Livraria;
 import model.Livro;
-import util.ConnectionSQLServer;
+import util.ConnectionDB;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Main {
 
-    private static ConnectionSQLServer connection;
+    private static ConnectionDB connection;
 
     public static void main(final String[] args) {
         Livro livro = new Livro();
@@ -30,7 +30,7 @@ public class Main {
 
     private static void insertLivro(final Livro livro) {
         try {
-            connection = new ConnectionSQLServer();
+            connection = new ConnectionDB();
             connection.execute(String.format("insert into livro (isbn, titulo, autor, ano_lancamento, quantidade_paginas, genero) " +
                             "values ('%s', '%s', '%s', '%s', '%s', '%s')",
                     livro.getIsbn().toString(), livro.getTitulo(),
@@ -45,7 +45,7 @@ public class Main {
 
     private static void insertLivraria(final Livraria livraria, final Integer isbn) {
         try {
-            connection = new ConnectionSQLServer();
+            connection = new ConnectionDB();
             connection.execute(String.format("insert into livraria (nome, isbn_livro) " +
                     "values ('%s', '%s')", livraria.getNome(), isbn.toString()));
         } catch (final Exception e) {
@@ -57,7 +57,7 @@ public class Main {
 
     private static void findAll() {
         try {
-            connection = new ConnectionSQLServer();
+            connection = new ConnectionDB();
             ResultSet rs = connection.executeWithResponse(
                     "select " +
                             "lvra.id, " +

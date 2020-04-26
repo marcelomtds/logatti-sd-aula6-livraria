@@ -3,14 +3,14 @@ package util;
 import java.io.Serializable;
 import java.sql.*;
 
-public class ConnectionSQLServer implements Serializable {
+public class ConnectionDB implements Serializable {
 
     private static final long serialVersionUID = -6476698366784841470L;
 
     private Connection connection;
     private Statement statement;
 
-    public ConnectionSQLServer() {
+    public ConnectionDB() {
         try {
             Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/logatti-sd", "postgres", "12345");
